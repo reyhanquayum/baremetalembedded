@@ -38,7 +38,10 @@ void SysTick_Handler  				(void) __attribute__ ((weak, alias("Default_Handler"))
 void WWDG_IRQHandler 				(void) __attribute__ ((weak, alias("Default_Handler")));
 void PVD_IRQHandler 				(void) __attribute__ ((weak, alias("Default_Handler")));             
 void TAMP_STAMP_IRQHandler 			(void) __attribute__ ((weak, alias("Default_Handler")));      
-void RTC_WKUP_IRQHandler 			(void) __attribute__ ((weak, alias("Default_Handler")));                               
+void RTC_WKUP_IRQHandler 			(void) __attribute__ ((weak, alias("Default_Handler")));  
+
+void FLASH_IRQHandler 			(void) __attribute__ ((weak, alias("Default_Handler")));  
+
 void RCC_IRQHandler 				(void) __attribute__ ((weak, alias("Default_Handler")));             
 void EXTI0_IRQHandler 				(void) __attribute__ ((weak, alias("Default_Handler")));           
 void EXTI1_IRQHandler 				(void) __attribute__ ((weak, alias("Default_Handler")));           
@@ -116,6 +119,18 @@ void DCMI_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Ha
 void CRYP_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Handler")));
 void HASH_RNG_IRQHandler         	(void) __attribute__ ((weak, alias("Default_Handler")));
 void FPU_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+void SPI4_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+
+void SAI1_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+void SAI2_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+
+
+void QuadSPI_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+void HDMI_CEC_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+void SPDIF_Rx_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+
+void FMPI2C1_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
+void FMPIC21_error_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
 
 
 uint32_t vectors[] __attribute__((section(".isr_vector")))   = {
@@ -139,7 +154,7 @@ uint32_t vectors[] __attribute__((section(".isr_vector")))   = {
 	(uint32_t)PVD_IRQHandler,         
 	(uint32_t)TAMP_STAMP_IRQHandler,  
 	(uint32_t)RTC_WKUP_IRQHandler,    
-	0,                      
+	(uint32_t)FLASH_IRQHandler,                      
 	(uint32_t)RCC_IRQHandler,         
 	(uint32_t)EXTI0_IRQHandler,       
 	(uint32_t)EXTI1_IRQHandler,       
@@ -196,9 +211,9 @@ uint32_t vectors[] __attribute__((section(".isr_vector")))   = {
 	(uint32_t)DMA2_Stream2_IRQHandler,
 	(uint32_t)DMA2_Stream3_IRQHandler,
 	(uint32_t)DMA2_Stream4_IRQHandler,
-	(uint32_t)ETH_IRQHandler,         
-	(uint32_t)ETH_WKUP_IRQHandler,    
-	(uint32_t)CAN2_TX_IRQHandler,     
+	0,
+	0,
+  (uint32_t)CAN2_TX_IRQHandler,     
 	(uint32_t)CAN2_RX0_IRQHandler,    
 	(uint32_t)CAN2_RX1_IRQHandler,    
 	(uint32_t)CAN2_SCE_IRQHandler,    
@@ -214,9 +229,24 @@ uint32_t vectors[] __attribute__((section(".isr_vector")))   = {
 	(uint32_t)OTG_HS_WKUP_IRQHandler, 
 	(uint32_t)OTG_HS_IRQHandler,      
 	(uint32_t)DCMI_IRQHandler,        
-	(uint32_t)CRYP_IRQHandler,        
-	(uint32_t)HASH_RNG_IRQHandler,    
-	(uint32_t)FPU_IRQHandler,         
+	0,
+	0,
+  (uint32_t)FPU_IRQHandler,         
+  0,
+  0,
+  (uint32_t)SPI4_IRQHandler,
+  0,
+  0,
+  (uint32_t)SAI1_IRQHandler,
+  0,
+  0,
+  0,
+  (uint32_t)SAI2_IRQHandler,
+  (uint32_t)QuadSPI_IRQHandler,
+  (uint32_t)HDMI_CEC_IRQHandler,
+  (uint32_t)SPDIF_Rx_IRQHandler,
+  (uint32_t)FMPI2C1_IRQHandler,
+  (uint32_t)FMPIC21_error_IRQHandler
 };
 
 
