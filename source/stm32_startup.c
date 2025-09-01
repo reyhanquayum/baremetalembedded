@@ -132,7 +132,9 @@ void SPDIF_Rx_IRQHandler              	(void) __attribute__ ((weak, alias("Defau
 void FMPI2C1_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
 void FMPIC21_error_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));                          
 
-
+// this is telling the compiler to make a separate section
+// to place the objects in generate. this is needed to map variables
+// to special hardware. see GNU GCC docs on C implementation behavior
 uint32_t vectors[] __attribute__((section(".isr_vector")))   = {
 	STACK_START,
 	(uint32_t)Reset_Handler,
