@@ -135,6 +135,7 @@ void FMPIC21_error_IRQHandler              	(void) __attribute__ ((weak, alias("
 // this is telling the compiler to make a separate section
 // to place the objects in generate. this is needed to map variables
 // to special hardware. see GNU GCC docs on C implementation behavior
+// that dot in ".isr_vector" is not required, it's just for convention
 uint32_t vectors[] __attribute__((section(".isr_vector")))   = {
 	STACK_START,
 	(uint32_t)Reset_Handler,
