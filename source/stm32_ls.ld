@@ -2,8 +2,8 @@ ENTRY(Reset_Handler)
 
 MEMORY
 {
-  FLASH(rx):ORIGIN=0x08000000,LENGTH=512K
-  SRAM(rwx):ORIGIN=0x20000000,LENGTH=128K
+  FLASH(rx):ORIGIN = 0x08000000,LENGTH = 512K
+  SRAM(rwx):ORIGIN = 0x20000000,LENGTH = 128K
 }
 
 SECTIONS
@@ -14,12 +14,13 @@ SECTIONS
    * reliable and executable
    * read only
    * */
-  .text:
+  .text :
   {
     /* start of text is just our FLASH origin */
     *(.isr_vector)
     *(.text)
     *(.rodata)
+    . = ALIGN(4);
   /*
    * rodata contains read only data such as
    * string literals, const global vars
@@ -29,17 +30,22 @@ SECTIONS
   }> FLASH
 
   /*.data contains initialized global variables*/
-  .data:
+  .data :
   {
     _sdata = .;
     *(.data)
     _edata = .;
   }> SRAM AT> FLASH
 
+  _la_data = LOADADDR(.data);
+
   /*bss contains uninitialized global variables*/
-  .bss{
+  .bss :
+  {
     _sbss = .;
     *(.bss)
+    *(COMMON)
+    . = ALIGN(4);
     _ebss = .;
   }> SRAM
 }

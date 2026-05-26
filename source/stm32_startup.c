@@ -19,8 +19,6 @@ extern uint32_t _ebss;
 
 int main(void);
 
-void __libc_init_array(void);
-
 
 /* function prototypes of STM32F407x system exception and IRQ handlers */
 
@@ -260,34 +258,23 @@ void Default_Handler(void)
 
 void Reset_Handler(void)
 {
-	//copy .data section to SRAM
-	uint32_t size = (uint32_t)&_edata - (uint32_t)&_sdata;
-	
-	uint8_t *pDst = (uint8_t*)&_sdata; //sram
-	uint8_t *pSrc = (uint8_t*)&_la_data; //flash
-	
-	for(uint32_t i =0 ; i < size ; i++)
-	{
-		*pDst++ = *pSrc++;
-	}
-	
-	//Init. the .bss section to zero in SRAM
-	size = (uint32_t)&_ebss - (uint32_t)&_sbss;
-	pDst = (uint8_t*)&_sbss;
-	for(uint32_t i =0 ; i < size ; i++)
-	{
-		*pDst++ = 0;
-	}
+  // copy .data section to SRAM
+  uint32_t size = (uint32_t)&_edata - (uint32_t)&_sdata;
 
-	__libc_init_array();
-	
-	main();
-	
+  uint8_t *pDst = (uint8_t*)&_sdata; // sram
+  uint8_t *pSrc = (uint8_t*)&_etext; // flash
+
+  for(uint32_t i = 0; i < size; i++){
+    *pDst++ = *pSrc++;
+  }
+
+  // zero out the .bss section in SRAM
+  size = (uint32_t)&_ebss - (uint32_t)&_sbss;
+
+  *pDst = (uint8_t)&_sbss;
+  for(uint32_t i = 0; i< size; i++){
+    *pDst++ = 0;
+  }
+
+  main();
 }
-
-
-
-
-
-
-
